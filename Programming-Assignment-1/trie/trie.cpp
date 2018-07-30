@@ -13,6 +13,24 @@ typedef vector<edges> trie;
 trie build_trie(vector<string> & patterns) {
   trie t;
   // write your code here
+  // add root to trie
+  edges root;
+  t.push_back(root);
+  for (const string& pattern : patterns) {
+    size_t current_idx = 0;
+    for (int i = 0; i < pattern.size(); ++i) {
+        char current_symbol = pattern[i];
+        if (t[current_idx].count(current_symbol)>0) {
+            current_idx = t[current_idx][current_symbol];
+        } else {
+            edges new_node;
+            t.push_back(new_node);
+            const size_t new_idx = t.size()-1;
+            t[current_idx][current_symbol] = new_idx;
+            current_idx = new_idx;
+        }
+    }
+  }
   return t;
 }
 
