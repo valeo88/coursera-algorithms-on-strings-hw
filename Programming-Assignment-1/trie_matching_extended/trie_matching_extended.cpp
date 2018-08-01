@@ -35,25 +35,8 @@ int letterToIndex (char letter)
 	}
 }
 
-/*
-vector <int> solve (string text, int n, vector <string> patterns)
-{
-	vector <int> result;
-
-	// write your code here
-
-	return result;
-}*/
-
-
 typedef vector<Node> trie;
 
-/*ostream& operator<<(ostream& out, const edges& e) {
-    for (const auto& p : e) {
-        out << p.first <<  " - " << p.second << " ";
-    }
-    out << endl;
-}*/
 
 trie build_trie(const vector<string> & patterns) {
   trie t;
