@@ -4,15 +4,41 @@
 #include <vector>
 
 using std::cin;
+using std::cout;
 using std::string;
 using std::vector;
 
+vector<int> compute_prefix_function(const string& s) {
+    const size_t n = s.size();
+    vector<int> result(n,0);
+    int border = 0;
+
+    for (size_t i = 1; i < n; ++i) {
+        while (border > 0 && s[i]!=s[border]) {
+            border = result[border - 1];
+        }
+        if (s[i] == s[border]) {
+            border++;
+        } else {
+            border = 0;
+        }
+        result[i] = border;
+    }
+    return result;
+}
+
 // Find all occurrences of the pattern in the text and return a
-// vector with all positions in the text (starting from 0) where 
+// vector with all positions in the text (starting from 0) where
 // the pattern starts in the text.
 vector<int> find_pattern(const string& pattern, const string& text) {
   vector<int> result;
   // Implement this function yourself
+  string s = pattern + '$' + text;
+  vector<int> pref = compute_prefix_function(s);
+  for (size_t i = pattern.size() + 1; i < s.size(); ++i) {
+    if (pref[i] == pattern.size())
+        result.push_back(i - 2 * pattern.size());
+  }
   return result;
 }
 
